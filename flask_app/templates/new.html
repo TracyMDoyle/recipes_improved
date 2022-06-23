@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+    <title>Document</title>
+</head>
+<body>
+    <nav class="navbar navbar-light bg-light">
+        <span class="navbar-brand mb-0 h1">Add a new recipe, {{ this_user.first_name }}</span>
+        <a href ="/users/dashboard"><button class="btn btn-primary">Dashboard</button></a>
+        <a href ="/logout"><button class="btn btn-primary">Logout</button></a>
+    </nav>
+    <div class="containter bg-danger m-2 text-white d-flex justify-content-center">
+        {% with messages = get_flashed_messages()%}
+                {% if messages%}
+                    <div id="popup">
+                        {% for message in messages%}
+                            <p>{{ message }}</p>
+                        {% endfor %}
+                        <button onclick="popup.remove()">Okay</button>
+                    </div>
+                {% endif %}
+                {% endwith %}
+    </div>
+    <div class="container text-white">
+        <div class="row">
+            <div class="col bg-primary m-4 p-4">
+    <form class="form-group d-flex flex-column align-items-start" action = "/recipes/add" method = "post">
+        <input type = "hidden" name="user_id" value = "{{ session.user_id }}" >
+        <label>
+            Name:
+            <input type="text" name="name">
+        </label>
+        <label>
+            <p>Description:</p>
+            <textarea name="description" cols="30" rows="10"></textarea>
+        </label>
+        <label>
+            <p>Instructions:</p>
+            <textarea name="instructions" cols="30" rows="10"></textarea>
+        </label>
+        <label>
+            Date Made:
+            <input type="date" name="date_made">
+        </label>
+        <p>Under Thirty Minutes?</p>
+        <input type="radio" id="Yes" name="under_thirty" value="1" checked="checked">
+        <label for="Yes">Yes</label>
+        <input type="radio" id="No" name="under_thirty" value="0">
+        <label for="No">No</label>
+        <input type="submit" value="Create">
+    </form>
+</body>
+</html>

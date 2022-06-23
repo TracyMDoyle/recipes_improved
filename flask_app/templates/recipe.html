@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+    <title>Recipe</title>
+</head>
+<body>
+    <nav class="navbar navbar-light bg-light">
+        <span class="navbar-brand mb-0 h1">Recipe for {{ the_recipe.name }}</span>
+        <a href ="/users/dashboard"><button class="btn btn-primary">Dashboard</button></a>
+        <a href ="/logout"><button class="btn btn-primary">Logout</button></a>
+    </nav>
+</body>
+<div class="container text-white">
+    <div class="row">
+        <div class="col bg-primary m-4 p-4">
+        <h1>{{ the_recipe.name }}</h1>
+        <h3>Description:</h3>
+        <p>{{ the_recipe.description }}</p>
+        <h3>Instructions:</h3>
+        <p>{{ the_recipe.instructions }}</p>
+        <h3>Date Made:</h3>
+        <p>{{ the_recipe.date_made }}</p>
+        <h3>Is it made under 30 minutes?</h3>
+        {% if the_recipe.under_thirty == 1 %}
+            <p>Yes</p>
+            {% else %}
+            <p>No</p>
+            {% endif %}
+        </div>
+    </div>
+</div>
+</html>

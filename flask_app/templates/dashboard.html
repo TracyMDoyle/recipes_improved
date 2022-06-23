@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+    <title>Recipe Dashboard</title>
+</head>
+<body>
+    <nav class="navbar navbar-light bg-light">
+        <span class="navbar-brand mb-0 h1">Welcome to your recipes, {{ this_user.first_name }}</span>
+        <a href ="/recipes/create"><button class="btn btn-primary">Add a recipe</button></a>
+        <a href ="/logout"><button class="btn btn-primary">Logout</button></a>
+    </nav>
+    <div class="d-flex justify-content-center">
+        <table class=" table table-primary m-4">
+            <thead>
+            <tr>
+                <th scope="col">Cook's Name</th>
+                <th scope="col">Name</th>
+                <th scope="col">Under Thirty Minutes?</th>
+                <th scope="col">Actions</th>
+            </tr>
+            </thead>
+            <tbody>
+                <tr>
+                {% for recipe in all_user_recipes %}
+                    <td>{{recipe.recipe_cook.first_name}} {{recipe.recipe_cook.last_name}}</td>
+                    <td>{{recipe.name}}</td>
+                    {% if recipe.under_thirty == 1 %}
+                    <td>Yes</td>
+                    {% else %}
+                    <td>No</td>
+                    {% endif %}
+                    <td><a href="/recipes/read_recipe/{{recipe.id}}">view instructions |</a>
+                        {% if session.user_id == recipe.recipe_cook.id %}
+                        <a href="/recipes/edit/{{recipe.id}}"> Edit |</a>
+                        <a href="/recipes/delete/{{recipe.id}}"> Delete</a>
+                        {% endif %}
+                    </td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </div>
+    
+</body>
+</html>
+   
