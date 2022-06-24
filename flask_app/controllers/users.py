@@ -18,7 +18,7 @@ def index():
 @app.route("/users/dashboard")
 def user_dashboard():
     this_user = user.User.get_user_by_id(session['user_id'])
-    all_user_recipes = recipe.Recipe.get_all_recipes_with_user()
+    all_user_recipes = recipe.Recipe.get_all_recipes_with_user() 
     return render_template("dashboard.html" , this_user=this_user, all_user_recipes=all_user_recipes)
 
 @app.route("/users/login", methods=['POST'])

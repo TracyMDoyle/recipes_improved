@@ -96,12 +96,9 @@ class User:
         if not PASSWORD_REGEX.match(data["password"]):
             flash("Your password must be 8 characters and contain at least one uppercase letter, a number, and a lowercase letter")
             is_valid = False
-        #removed the below as redundant with the added password regex added above
-        # if len(data["password"]) < 8:
-        #     flash("Your password must be at least 8 characters long.")
-        #     is_valid = False
         if data["password"] != data["confirm_password"]:
             flash("Passwords do not match")
+            is_valid = False
         return is_valid
     
     @staticmethod

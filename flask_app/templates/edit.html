@@ -30,7 +30,7 @@
             <div class="col bg-primary m-4 p-4">
                 <form class="form-group d-flex flex-column align-items-start" action = "/recipes/updated" method = "post">
                     <input type = "hidden" name="user_id" value = "{{ session.user_id }}" >
-                    <input type = "hidden" name="id" value = "{{ the_recipe.user_id }}" >
+                    <input type = "hidden" name="id" value = "{{ the_recipe.id }}" >
                     <label>
                         Name:
                         <input type="text" name="name" value = "{{ the_recipe.name }}">

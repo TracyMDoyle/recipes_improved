@@ -33,14 +33,32 @@ def edit_a_recipe(id):
 
 @app.route("/recipes/updated", methods = ["POST"])
 def updated_recipe():
-    if 'user_id' in session:
-        if recipe.Recipe.update_recipe_by_id(request.form):
-            return redirect("/users/dashboard")
-        return render_template("edit.html", the_recipe=request.form)
-    return redirect('/logout')
+    if 'user_id' not in session:
+        return redirect('/logout')
+    # the_recipe = recipe.Recipe.get_recipe_by_id(id)
+    if recipe.Recipe.update_recipe_by_id(request.form) == True:
+        print("&&&^&%$%&^&^&^&&&&& this is the request", request.form)
+        return redirect("/users/dashboard")
+    return render_template("edit.html", the_recipe=request.form)
+    
+
+    # if 'user_id' not in session:
+    #     return redirect('/logout')
+    # if not recipe.Recipe.validated_recipe(request.form):
+    #     return render_template("edit.html", the_recipe=request.form)
+    # data = {
+    #     "name": request.form["name"],
+    #     "description": request.form["description"],
+    #     "instructions": request.form["instructions"],
+    #     "under_thirty": int(request.form["under_thirty"]),
+    #     "date_made": request.form["date_made"],
+    #     "id": request.form['id']
+    # }
+    # recipe.Recipe.update_recipe_by_id(data)
+    # return redirect("/users/dashboard")
 
 #delete recipes
-@app.route('/users/recipes/delete/<int:id>')
+@app.route('/recipes/delete/<int:id>')
 def delete_recipe(id):
     recipe.Recipe.delete_recipe_by_id(id)
     return redirect("/users/dashboard")

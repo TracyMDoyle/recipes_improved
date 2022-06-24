@@ -15,7 +15,7 @@ class Recipe:
         self.under_thirty = int(data["under_thirty"])
         self.created_at = data["created_at"]
         self.updated_at = data["updated_at"]
-        self.recipe_cook_name = None
+        # self.recipe_cook_name = None
         self.recipe_cook = None
 
     #create - SQL - recipe
@@ -44,7 +44,7 @@ class Recipe:
         all_user_recipe_instances = []
         for db_dictionary_row in results:
             new_recipe = cls(db_dictionary_row)
-            new_recipe.recipe_cook_name = f'{db_dictionary_row["first_name"]} {db_dictionary_row["last_name"]}'
+            # new_recipe.recipe_cook_name = f'{db_dictionary_row["first_name"]} {db_dictionary_row["last_name"]}'
             recipe_cook_dictionary = { 
                 "id" :db_dictionary_row['users.id'],
                 "first_name":db_dictionary_row['first_name'],
@@ -56,7 +56,7 @@ class Recipe:
             }
             new_recipe.recipe_cook = user.User(recipe_cook_dictionary)
             all_user_recipe_instances.append(new_recipe) 
-            print("****************",new_recipe.recipe_cook.first_name)
+            print("****************", new_recipe)
         return all_user_recipe_instances
     
     @classmethod
@@ -79,11 +79,20 @@ class Recipe:
             return False
         query= """
         UPDATE recipes
-        SET name = %(name)s, description = %(description)s, instructions = %(instructions)s, date_made = %(date_made)s, under_thirty = %(under_thirty)s 
+        SET name = %(name)s, description = %(description)s, instructions = %(instructions)s, 
+        date_made = %(date_made)s, under_thirty = %(under_thirty)s 
         WHERE id = %(id)s
         ;"""
         result = connectToMySQL(cls.db).query_db(query, data)
+        if result:
+            result = (result[0])
+        print("****************** the result is", result) 
+        result = connectToMySQL(cls.db).query_db(query, data)
         return True
+        
+        
+        # query = "UPDATE recipes SET name=%(name)s, description=%(description)s, instructions=%(instructions)s, under30=%(under30)s, date_made=%(date_made)s,updated_at=NOW() WHERE id = %(id)s;"
+        # return connectToMySQL(cls.db).query_db(query,data)
 
 
     #delete - SQL - recipe
